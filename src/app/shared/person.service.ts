@@ -16,7 +16,8 @@ export class PersonService {
     if (searchTerm !== undefined) {
       options = { params: new HttpParams().set('name', searchTerm) };
     }
-    return this.httpClient.get<Person[]>(this.url, options);
+    return this.httpClient.get<Person[]>(this.url, options)
+      .map(persons => persons.map(person => new Person(person)));
   }
 
 }

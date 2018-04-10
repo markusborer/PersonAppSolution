@@ -1,16 +1,22 @@
 <h1>Personen</h1>
-<input type="text" [(ngModel)]="searchTerm" name="searchTerm" (ngModelChange)="search()">
-<table>
+<form #searchForm="ngForm">
+  <input type="text" [(ngModel)]="searchTerm" name="searchTerm">
+</form>
+<label *ngIf="status===LoadingStatus.LOADING">Loading...</label>
+<label *ngIf="status===LoadingStatus.ERROR">Error getting persons</label>
+<table *ngIf="status===LoadingStatus.LOADED">
   <thead>
   <tr>
     <th>Name</th>
     <th>Vorname</th>
+    <th>EMail</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let person of persons">
     <td>{{person.name}}</td>
     <td>{{person.vorname}}</td>
+    <td>{{person.getEmail()}}</td>
   </tr>
   </tbody>
 </table>
